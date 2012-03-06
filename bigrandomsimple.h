@@ -15,6 +15,8 @@ namespace DecToBin
     QBitArray *decToBitArray(quint64 dec);
     QBitArray operator+(const QBitArray &a1, const QBitArray &a2);
     QBitArray operator-(const QBitArray &a1, const QBitArray &a2);
+    bool operator>(const QBitArray &a1, const QBitArray &a2);
+    bool operator<(const QBitArray &a1, const QBitArray &a2);
 }
 
 class BigRandomSimple

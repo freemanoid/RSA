@@ -61,8 +61,14 @@ QBitArray DecToBin::operator+(const QBitArray &a1, const QBitArray &a2)
         rest = max->testBit(max->size() - itr) && rest;
     }
     if(rest)
+    {
         result.setBit(0, 1);
-    return result;
+        return result;
+    }
+    QBitArray resultWithLessSize(result.size() - 1);
+    for(quint16 itr = 0; itr < resultWithLessSize.size(); ++itr)
+        resultWithLessSize.setBit(resultWithLessSize.size() - itr, result.testBit(result.size() - itr));
+    return resultWithLessSize;
 }
 
 QBitArray DecToBin::operator-(const QBitArray &a1, const QBitArray &a2)
@@ -88,8 +94,41 @@ QBitArray DecToBin::operator-(const QBitArray &a1, const QBitArray &a2)
         rest = !max->testBit(max->size() - itr) && rest;
     }
     if(rest)
+    {
         result.setBit(0, 0);
-    return result;
+        return result;
+    }
+    quint16 lessResultSize = result.size();
+    for(itr = 0; !result.testBit(itr); ++itr)
+        --lessResultSize;
+    QBitArray resultWithLessSize(lessResultSize);
+    for(itr = 0; itr < lessResultSize; ++itr)
+        resultWithLessSize.setBit(resultWithLessSize.size() - itr, result.testBit(result.size() - itr));
+    return resultWithLessSize;
+}
+
+bool DecToBin::operator>(const QBitArray &a1, const QBitArray &a2) //this realization basics on concept that each QBitArray do not contain any zeros (falses) in the begining (0, 1, 2 etc indexes)
+{
+    if(a1.size() > a2.size() && a1.testBit(0))
+        return true;
+    if(a1.size() < a2.size() && a2.testBit(0))
+        return false;
+    for(quint16 itr = 0; itr < a1.size(); ++itr) //now we have QBitArrays with similar size and just need to check the bits from highest to lowest
+        if(a1.testBit(itr) < a2.testBit(itr))
+            return false;
+    return true;
+}
+
+bool DecToBin::operator<(const QBitArray &a1, const QBitArray &a2) //this realization basics on concept that each QBitArray do not contain any zeros (falses) in the begining (0, 1, 2 etc indexes)
+{
+    if(a1.size() < a2.size() && a1.testBit(0))
+        return true;
+    if(a1.size() > a2.size() && a2.testBit(0))
+        return false;
+    for(quint16 itr = 0; itr < a1.size(); ++itr) //now we have QBitArrays with similar size and just need to check the bits from highest to lowest
+        if(a1.testBit(itr) > a2.testBit(itr))
+            return false;
+    return true;
 }
 
 quint64 DecToBin::determinateDecSizeToBin(const quint64 &dec)
