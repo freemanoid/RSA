@@ -1,9 +1,9 @@
-#include "bigrandomsimple.h"
+#include "bigrandomprime.h"
 #include <QTime>
 #include <QDebug>
 #include <iostream>
 
-BigRandomSimple::BigRandomSimple(const quint16 length) : m_bitnumber(length)
+BigRandomPrime::BigRandomPrime(const quint16 length) : m_bitnumber(length)
 {
     qsrand(time(NULL));
     m_bitnumber.setBit(0, 1);
@@ -11,7 +11,7 @@ BigRandomSimple::BigRandomSimple(const quint16 length) : m_bitnumber(length)
         m_bitnumber.setBit(itr, bool(qrand() % 2));
 }
 
-void BigRandomSimple::show(quint8 shift = 0) const
+void BigRandomPrime::show(quint8 shift = 0) const
 {
     for(quint8 itr = 0; itr < shift; ++itr)
         std::cout << 0 << std::flush;
@@ -20,19 +20,19 @@ void BigRandomSimple::show(quint8 shift = 0) const
     std::cout << std::endl << std::flush;
 }
 
-BigRandomSimple BigRandomSimple::operator +(const BigRandomSimple &a1)
+BigRandomPrime BigRandomPrime::operator +(const BigRandomPrime &a1)
 {
     QBitArray result = DecToBin::operator +(this->m_bitnumber, a1.m_bitnumber);
-    return BigRandomSimple(result);
+    return BigRandomPrime(result);
 }
 
-BigRandomSimple BigRandomSimple::operator -(const BigRandomSimple &a1)
+BigRandomPrime BigRandomPrime::operator -(const BigRandomPrime &a1)
 {
     QBitArray result = DecToBin::operator -(this->m_bitnumber, a1.m_bitnumber);
-    return BigRandomSimple(result);
+    return BigRandomPrime(result);
 }
 
-bool BigRandomSimple::tableTest(const quint16 table[], const quint8 tableSize) const
+bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) const
 {
 
 

@@ -12,9 +12,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    bigrandomsimple.cpp
+    bigrandomprime.cpp
 
 HEADERS  += mainwindow.h \
-    bigrandomsimple.h
+    bigrandomprime.h
 
 FORMS    += mainwindow.ui
