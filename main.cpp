@@ -14,6 +14,6 @@ int main(int argc, char *argv[])
     sleep(1);
     BigRandomPrime number2(8);
     number2.show(0);
-    (number1 - number2).show(0);
+    (number1 * number2).show();
     return a.exec();
 }

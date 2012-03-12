@@ -11,7 +11,7 @@ BigRandomPrime::BigRandomPrime(const quint16 length) : m_bitnumber(length)
         m_bitnumber.setBit(itr, bool(qrand() % 2));
 }
 
-void BigRandomPrime::show(quint8 shift = 0) const
+void BigRandomPrime::show(const quint8 shift) const
 {
     for(quint8 itr = 0; itr < shift; ++itr)
         std::cout << 0 << std::flush;
