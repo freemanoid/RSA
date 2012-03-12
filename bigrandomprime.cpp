@@ -38,10 +38,26 @@ BigRandomPrime BigRandomPrime::operator *(const BigRandomPrime &a1)
     return BigRandomPrime(result);
 }
 
+quint64 BigRandomPrime::ToDec() const
+{
+    return DecToBin::bitArrayToDec(m_bitnumber);
+}
+
 bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) const
 {
 
 
+}
+
+quint64 DecToBin::bitArrayToDec(const QBitArray &a)
+{
+    Q_ASSERT_X(a.size() < 64, "quint64", "quint64 cannot have more than 63 bits length");
+    quint64 result = 0;
+    quint64 poweroftwo = 1;
+    for(qint8 itr = a.size() - 1; itr >= 0; --itr, poweroftwo *= 2)
+        if(a.testBit(itr))
+            result += poweroftwo;
+    return result;
 }
 
 QBitArray DecToBin::operator+(const QBitArray &a1, const QBitArray &a2)
