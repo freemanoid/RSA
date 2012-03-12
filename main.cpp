@@ -15,5 +15,6 @@ int main(int argc, char *argv[])
     BigRandomPrime number2(8);
     number2.show(0);
     (number1 * number2).show();
+    qDebug() << number1.ToDec() << " * " << number2.ToDec() << " = " << number1.ToDec() * number2.ToDec() << "(" << (number1 * number2).ToDec() << ")";
     return a.exec();
 }

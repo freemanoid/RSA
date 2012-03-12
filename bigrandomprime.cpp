@@ -32,6 +32,12 @@ BigRandomPrime BigRandomPrime::operator -(const BigRandomPrime &a1)
     return BigRandomPrime(result);
 }
 
+BigRandomPrime BigRandomPrime::operator *(const BigRandomPrime &a1)
+{
+    QBitArray result = DecToBin::operator *(this->m_bitnumber, a1.m_bitnumber);
+    return BigRandomPrime(result);
+}
+
 bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) const
 {
 
@@ -107,6 +113,23 @@ QBitArray DecToBin::operator-(const QBitArray &a1, const QBitArray &a2)
     for(itr = 1; itr <= lessResultSize; ++itr)
         resultWithLessSize.setBit(resultWithLessSize.size() - itr, result.testBit(result.size() - itr));
     return resultWithLessSize;
+}
+
+QBitArray DecToBin::operator*(const QBitArray &a1, const QBitArray &a2)
+{
+    QBitArray result(0);
+    if(a1.size() == 0 || a2.size() == 0)
+        return result; //empty array
+    result.resize(a1.size() + a2.size());
+    quint16 a1size = a1.size();
+    for(quint16 itr = 1; itr <= a2.size(); ++itr)
+    {
+        if(a2.testBit(a2.size() - itr))
+            result = result + a1;
+        const_cast<QBitArray &>(a1).resize(a1.size() + 1); //in this way we make left shift
+    }
+    const_cast<QBitArray &>(a1).resize(a1size);
+    return result;
 }
 
 bool DecToBin::operator>(const QBitArray &a1, const QBitArray &a2) //this realization basics on concept that each QBitArray do not contain any zeros (falses) in the begining (0, 1, 2 etc indexes)

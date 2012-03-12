@@ -15,6 +15,7 @@ namespace DecToBin
     QBitArray *decToBitArray(quint64 dec);
     QBitArray operator+(const QBitArray &a1, const QBitArray &a2);
     QBitArray operator-(const QBitArray &a1, const QBitArray &a2);
+    QBitArray operator*(const QBitArray &a1, const QBitArray &a2);
     bool operator>(const QBitArray &a1, const QBitArray &a2);
     bool operator<(const QBitArray &a1, const QBitArray &a2);
 }
@@ -32,6 +33,7 @@ public:
     void show(const quint8 shift = 0) const;
     BigRandomPrime operator+(const BigRandomPrime &a1);
     BigRandomPrime operator-(const BigRandomPrime &a1);
+    BigRandomPrime operator*(const BigRandomPrime &a1);
 
 signals:
 
