@@ -4,11 +4,11 @@
 
 using namespace DecToBin;
 
-int main(int argc, char *argv[])
+int main()
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    //QApplication a();
+    //MainWindow w;
+    //w.show();
     BigRandomPrime number1(8);
     number1.show(0);
     sleep(1);
@@ -17,4 +17,6 @@ int main(int argc, char *argv[])
     (number1 * number2).show();
     qDebug() << number1.ToDec() << " * " << number2.ToDec() << " = " << number1.ToDec() * number2.ToDec() << "(" << (number1 * number2).ToDec() << ")";
     return a.exec();
+    //return a.exec();
+    return 0;
 }

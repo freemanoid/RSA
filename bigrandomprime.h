@@ -31,14 +31,13 @@ bool operator==(const QBitArray &a1, const QBitArray &a2);
 
 class BigRandomPrime
 {
-
 private:
     QBitArray m_bitnumber;
     bool tableTest(const quint16 [], const quint8 tableSize) const;
 
 public:
     explicit BigRandomPrime(const quint16 length);
-    BigRandomPrime(const QBitArray & bitarray) : m_bitnumber(bitarray) { }
+    BigRandomPrime(const QBitArray &bitarray) : m_bitnumber(bitarray) { }
     void show(const quint8 shift = 0) const;
     BigRandomPrime operator+(const BigRandomPrime &a1) const;
     BigRandomPrime operator-(const BigRandomPrime &a1) const;
