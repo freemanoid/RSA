@@ -47,6 +47,8 @@ public:
     BigRandomPrime operator%(const BigRandomPrime &a1) const;
     bool operator==(const BigRandomPrime &a1) const;
     quint64 ToDec() const;
+    ~BigRandomPrime() { }
+
     bool test() const;
 
 signals:
