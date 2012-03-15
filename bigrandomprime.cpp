@@ -13,6 +13,11 @@ BigRandomPrime::BigRandomPrime(const quint16 length) : m_bitnumber(length)
 
 void BigRandomPrime::show(const quint8 shift) const
 {
+    if(m_bitnumber.size() == 0)
+    {
+        std::cout << "0 (empty)" << std::flush;
+        return;
+    }
     for(quint8 itr = 0; itr < shift; ++itr)
         std::cout << 0 << std::flush;
     for(quint16 itr = 0; itr < m_bitnumber.size(); ++itr)
