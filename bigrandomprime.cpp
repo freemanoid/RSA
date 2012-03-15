@@ -38,6 +38,18 @@ BigRandomPrime BigRandomPrime::operator *(const BigRandomPrime &a1)
     return BigRandomPrime(result);
 }
 
+BigRandomPrime BigRandomPrime::operator /(const BigRandomPrime &a1)
+{
+    QBitArray result = DecToBin::operator /(this->m_bitnumber, a1.m_bitnumber);
+    return BigRandomPrime(result);
+}
+
+BigRandomPrime BigRandomPrime::operator %(const BigRandomPrime &a1)
+{
+    QBitArray result = DecToBin::operator %(this->m_bitnumber, a1.m_bitnumber);
+    return BigRandomPrime(result);
+}
+
 quint64 BigRandomPrime::ToDec() const
 {
     return DecToBin::bitArrayToDec(m_bitnumber);
@@ -148,27 +160,153 @@ QBitArray DecToBin::operator*(const QBitArray &a1, const QBitArray &a2)
     return result;
 }
 
-bool DecToBin::operator>(const QBitArray &a1, const QBitArray &a2) //this realization basics on concept that each QBitArray do not contain any zeros (falses) in the begining (0, 1, 2 etc indexes)
+QBitArray DecToBin::operator/(const QBitArray &a1, const QBitArray &a2)
 {
-    if(a1.size() > a2.size())
+    QBitArray result(0);
+    quint16 itrResult = 0;
+    QBitArray current(0);
+    quint16 itrA1 = 0;
+    for(; current < a2; ++itrA1)
+    {
+        current.resize(current.size() + 1);
+        current.setBit(itrA1, a1.testBit(itrA1));
+    }
+    for(; itrA1 < a1.size(); ++itrA1)
+    {
+        if(current >= a2)
+        {
+            result.resize(result.size() + 1);
+            result.setBit(itrResult, 1);
+            ++itrResult;
+            current = current - a2;
+        }
+        else
+        {
+            result.resize(result.size() + 1);
+            result.setBit(itrResult, 0);
+            ++itrResult;
+        }
+        current.resize(current.size() + 1);
+        current.setBit(current.size() - 1, a1.testBit(itrA1));
+    }
+    if(current >= a2)
+    {
+        result.resize(result.size() + 1);
+        result.setBit(itrResult, 1);
+        ++itrResult;
+        current = current - a2;
+    }
+    else
+    {
+        result.resize(result.size() + 1);
+        result.setBit(itrResult, 0);
+        ++itrResult;
+    }
+    return result;
+}
+
+QBitArray DecToBin::operator%(const QBitArray &a1, const QBitArray &a2)
+{
+    QBitArray current(0);
+    quint16 itrA1 = 0;
+    for(; current < a2; ++itrA1)
+    {
+        current.resize(current.size() + 1);
+        current.setBit(itrA1, a1.testBit(itrA1));
+    }
+    for(; itrA1 < a1.size(); ++itrA1)
+    {
+        if(current >= a2)
+            current = current - a2;
+        current.resize(current.size() + 1);
+        current.setBit(current.size() - 1, a1.testBit(itrA1));
+    }
+    if(current >= a2)
+        current = current - a2;
+    return current;
+}
+
+bool DecToBin::operator>(const QBitArray &a1, const QBitArray &a2)
+{
+    quint16 a1size = a1.size();
+    while(a1size > 0 && !a1.testBit(a1.size() - a1size))
+        --a1size;
+    quint16 a2size = a2.size();
+    while(a2size > 0 && !a2.testBit(a2.size() - a2size))
+        --a2size;
+    if(a1size > a2size)
         return true;
-    if(a1.size() < a2.size())
+    if(a1size < a2size)
         return false;
-    for(quint16 itr = 0; itr < a1.size(); ++itr) //now we have QBitArrays with similar size and just need to check the bits from highest to lowest
-        if(a2.testBit(itr) < a1.testBit(itr))
+    for(qint32 itr = a1size; itr > 0; --itr) //now we have QBitArrays with similar real(without preceding 0 bits) size and just need to check the bits from highest to lowest
+        if(a2.testBit(a2.size() - itr) < a1.testBit(a1.size() - itr))
             return true;
+        else
+            if(a2.testBit(a2.size() - itr) > a1.testBit(a1.size() - itr))
+                return false;
     return false;
 }
 
-bool DecToBin::operator<(const QBitArray &a1, const QBitArray &a2) //this realization basics on concept that each QBitArray do not contain any zeros (falses) in the begining (0, 1, 2 etc indexes)
+bool DecToBin::operator>=(const QBitArray &a1, const QBitArray &a2)
 {
-    if(a1.size() < a2.size())
+    quint16 a1size = a1.size();
+    while(a1size > 0 && !a1.testBit(a1.size() - a1size))
+        --a1size;
+    quint16 a2size = a2.size();
+    while(a2size > 0 && !a2.testBit(a2.size() - a2size))
+        --a2size;
+    if(a1size > a2size)
         return true;
-    if(a1.size() > a2.size())
+    if(a1size < a2size)
         return false;
-    for(quint16 itr = 0; itr < a1.size(); ++itr) //now we have QBitArrays with similar size and just need to check the bits from highest to lowest
-        if(a1.testBit(itr) > a2.testBit(itr))
+    for(qint32 itr = a1size; itr > 0; --itr) //now we have QBitArrays with similar real(without preceding 0 bits) size and just need to check the bits from highest to lowest
+        if(a2.testBit(a2.size() - itr) < a1.testBit(a1.size() - itr))
+            return true;
+        else
+            if(a2.testBit(a2.size() - itr) > a1.testBit(a1.size() - itr))
+                return false;
+    return true;
+}
+
+bool DecToBin::operator<(const QBitArray &a1, const QBitArray &a2)
+{
+    quint16 a1size = a1.size();
+    while(a1size > 0 && !a1.testBit(a1.size() - a1size))
+        --a1size;
+    quint16 a2size = a2.size();
+    while(a2size > 0 && !a2.testBit(a2.size() - a2size))
+        --a2size;
+    if(a1size < a2size)
+        return true;
+    if(a1size > a2size)
+        return false;
+    for(qint32 itr = a1size; itr > 0; --itr) //now we have QBitArrays with similar real(without preceding 0 bits) size and just need to check the bits from highest to lowest
+        if(a1.testBit(a1.size() - itr) > a2.testBit(a2.size() - itr))
             return false;
+        else
+            if(a1.testBit(a1.size() - itr) < a2.testBit(a2.size() - itr))
+                return true;
+    return false;
+}
+
+bool DecToBin::operator<=(const QBitArray &a1, const QBitArray &a2)
+{
+    quint16 a1size = a1.size();
+    while(a1size > 0 && !a1.testBit(a1.size() - a1size))
+        --a1size;
+    quint16 a2size = a2.size();
+    while(a2size > 0 && !a2.testBit(a2.size() - a2size))
+        --a2size;
+    if(a1size < a2size)
+        return true;
+    if(a1size > a2size)
+        return false;
+    for(qint32 itr = a1size; itr > 0; --itr) //now we have QBitArrays with similar real(without preceding 0 bits) size and just need to check the bits from highest to lowest
+        if(a1.testBit(a1.size() - itr) > a2.testBit(a2.size() - itr))
+            return false;
+        else
+            if(a1.testBit(a1.size() - itr) < a2.testBit(a2.size() - itr))
+                return true;
     return true;
 }
 
