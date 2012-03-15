@@ -15,7 +15,7 @@ void BigRandomPrime::show(const quint8 shift) const
 {
     if(m_bitnumber.size() == 0)
     {
-        std::cout << "0 (empty)" << std::flush;
+        std::cout << "0 (empty)" << std::endl << std::flush;
         return;
     }
     for(quint8 itr = 0; itr < shift; ++itr)
