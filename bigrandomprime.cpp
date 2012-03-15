@@ -65,11 +65,23 @@ quint64 BigRandomPrime::ToDec() const
     return DecToBin::bitArrayToDec(m_bitnumber);
 }
 
+bool BigRandomPrime::test() const
+{
+    using namespace BRP;
+    return tableTest(primes, tableSize);
+}
+
 bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) const
 {
-
-
+    for(quint8 itr = 0; itr < tableSize; ++itr)
+        if((this->operator %(BigRandomPrime(DecToBin::decToBitArray(table[itr]))) == BigRandomPrime(0)))
+        {
+            qDebug() << this->ToDec() << " delitsia na " << table[itr];
+            return false;
+        }
+    return true;
 }
+
 
 quint64 DecToBin::bitArrayToDec(const QBitArray &a)
 {
