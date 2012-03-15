@@ -23,6 +23,7 @@ bool operator>(const QBitArray &a1, const QBitArray &a2);
 bool operator>=(const QBitArray &a1, const QBitArray &a2);
 bool operator<(const QBitArray &a1, const QBitArray &a2);
 bool operator<=(const QBitArray &a1, const QBitArray &a2);
+bool operator==(const QBitArray &a1, const QBitArray &a2);
 }
 
 class BigRandomPrime
@@ -41,6 +42,7 @@ public:
     BigRandomPrime operator*(const BigRandomPrime &a1) const;
     BigRandomPrime operator/(const BigRandomPrime &a1) const;
     BigRandomPrime operator%(const BigRandomPrime &a1) const;
+    bool operator==(const BigRandomPrime &a1) const;
     quint64 ToDec() const;
 
 signals:

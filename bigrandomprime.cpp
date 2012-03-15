@@ -55,6 +55,11 @@ BigRandomPrime BigRandomPrime::operator %(const BigRandomPrime &a1) const
     return BigRandomPrime(result);
 }
 
+bool BigRandomPrime::operator ==(const BigRandomPrime &a1) const
+{
+    return DecToBin::operator ==(this->m_bitnumber, a1.m_bitnumber);
+}
+
 quint64 BigRandomPrime::ToDec() const
 {
     return DecToBin::bitArrayToDec(m_bitnumber);
@@ -312,6 +317,22 @@ bool DecToBin::operator<=(const QBitArray &a1, const QBitArray &a2)
         else
             if(a1.testBit(a1.size() - itr) < a2.testBit(a2.size() - itr))
                 return true;
+    return true;
+}
+
+bool DecToBin::operator==(const QBitArray &a1, const QBitArray &a2)
+{
+    quint16 a1size = a1.size();
+    while(a1size > 0 && !a1.testBit(a1.size() - a1size))
+        --a1size;
+    quint16 a2size = a2.size();
+    while(a2size > 0 && !a2.testBit(a2.size() - a2size))
+        --a2size;
+    if(a1size != a2size)
+        return false;
+    for(quint16 itr = a1size; itr > 0; --itr)
+        if(a1.testBit(a1.size() - itr) != a2.testBit(a2.size() - itr))
+            return false;
     return true;
 }
 
