@@ -350,15 +350,15 @@ quint64 DecToBin::determinateDecSizeToBin(const quint64 &dec)
     return result;
 }
 
-QBitArray *DecToBin::decToBitArray(quint64 dec)
+QBitArray DecToBin::decToBitArray(quint64 dec)
 {
-    QBitArray *result = new QBitArray(determinateDecSizeToBin(dec));
-    quint16 index = 0;
-    do
+    QBitArray result(determinateDecSizeToBin(dec));
+    quint16 index = 1;
+    while(dec > 0)
     {
-        result->setBit(index, dec % 2);
+        result.setBit(result.size() - index, dec % 2);
+        dec /= 2;
         ++index;
     }
-    while(!(dec /= 2));
     return result;
 }

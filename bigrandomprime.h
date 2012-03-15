@@ -12,7 +12,7 @@ static const quint8 tableSize = 95;
 namespace DecToBin
 {
 quint64 determinateDecSizeToBin(const quint64 &dec);
-QBitArray *decToBitArray(quint64 dec);
+QBitArray decToBitArray(quint64 dec);
 quint64 bitArrayToDec(const QBitArray &a);
 QBitArray operator+(const QBitArray &a1, const QBitArray &a2);
 QBitArray operator-(const QBitArray &a1, const QBitArray &a2);
