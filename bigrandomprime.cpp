@@ -25,31 +25,31 @@ void BigRandomPrime::show(const quint8 shift) const
     std::cout << std::endl << std::flush;
 }
 
-BigRandomPrime BigRandomPrime::operator +(const BigRandomPrime &a1)
+BigRandomPrime BigRandomPrime::operator +(const BigRandomPrime &a1) const
 {
     QBitArray result = DecToBin::operator +(this->m_bitnumber, a1.m_bitnumber);
     return BigRandomPrime(result);
 }
 
-BigRandomPrime BigRandomPrime::operator -(const BigRandomPrime &a1)
+BigRandomPrime BigRandomPrime::operator -(const BigRandomPrime &a1) const
 {
     QBitArray result = DecToBin::operator -(this->m_bitnumber, a1.m_bitnumber);
     return BigRandomPrime(result);
 }
 
-BigRandomPrime BigRandomPrime::operator *(const BigRandomPrime &a1)
+BigRandomPrime BigRandomPrime::operator *(const BigRandomPrime &a1) const
 {
     QBitArray result = DecToBin::operator *(this->m_bitnumber, a1.m_bitnumber);
     return BigRandomPrime(result);
 }
 
-BigRandomPrime BigRandomPrime::operator /(const BigRandomPrime &a1)
+BigRandomPrime BigRandomPrime::operator /(const BigRandomPrime &a1) const
 {
     QBitArray result = DecToBin::operator /(this->m_bitnumber, a1.m_bitnumber);
     return BigRandomPrime(result);
 }
 
-BigRandomPrime BigRandomPrime::operator %(const BigRandomPrime &a1)
+BigRandomPrime BigRandomPrime::operator %(const BigRandomPrime &a1) const
 {
     QBitArray result = DecToBin::operator %(this->m_bitnumber, a1.m_bitnumber);
     return BigRandomPrime(result);
