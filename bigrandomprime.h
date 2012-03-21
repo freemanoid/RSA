@@ -34,6 +34,7 @@ class BigRandomPrime
 private:
     QBitArray m_bitnumber;
     bool tableTest(const quint16 [], const quint8 tableSize) const;
+    void randomize();
 
 public:
     explicit BigRandomPrime(const quint16 length);

@@ -5,20 +5,15 @@
 
 BigRandomPrime::BigRandomPrime(const quint16 length) : m_bitnumber(length)
 {
+    randomize();
     if(length == 0)
         return;
     m_bitnumber.setBit(0, 1);
     if(length < 2)
         return;
     m_bitnumber.setBit(m_bitnumber.size() - 1, 1); //no even numbers!
-    srand(time(NULL));
-    //qsrand(time(NULL));
     for(quint16 itr = 1; itr < m_bitnumber.size() - 1; ++itr)
-    {
-        qDebug() << rand() % 2;
-//        m_bitnumber.setBit(itr, qrand() % 2);
-        m_bitnumber.setBit(itr, rand() % 2);
-    }
+        m_bitnumber.setBit(itr, qrand() % 2);
 }
 
 void BigRandomPrime::show(const quint8 shift) const
@@ -90,6 +85,15 @@ bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) co
             return false;
         }
     return true;
+}
+
+void BigRandomPrime::randomize()
+{
+    static bool isCalled = false;
+    if(isCalled)
+        return;
+    qsrand(time(NULL));
+    isCalled = true;
 }
 
 

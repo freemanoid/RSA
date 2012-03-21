@@ -9,14 +9,15 @@ int main()
     //QApplication a();
     //MainWindow w;
     //w.show();
-    BigRandomPrime *number1 = new BigRandomPrime(15);
+//    qsrand(time(NULL));
+    BigRandomPrime *number1 = new BigRandomPrime(7);
     while(!number1->test())
     {
         number1->~BigRandomPrime();
-        //sleep(1);
-        number1 = new BigRandomPrime(15);
+        number1 = new BigRandomPrime(7);
     }
     qDebug() << number1->ToDec();
+    number1->show();
 //    (number1 % number2).show();
 //    qDebug() << number1.ToDec() << " % " << number2.ToDec() << " = " << number1.ToDec() % number2.ToDec() << "(" << (number1 % number2).ToDec() << ")";
     //return a.exec();
