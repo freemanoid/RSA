@@ -40,12 +40,13 @@ public:
     explicit BigRandomPrime(const quint16 length);
     BigRandomPrime(const QBitArray &bitarray) : m_bitnumber(bitarray) { }
     void show(const quint8 shift = 0) const;
-    BigRandomPrime operator+(const BigRandomPrime &a1) const;
-    BigRandomPrime operator-(const BigRandomPrime &a1) const;
-    BigRandomPrime operator*(const BigRandomPrime &a1) const;
-    BigRandomPrime operator/(const BigRandomPrime &a1) const;
-    BigRandomPrime operator%(const BigRandomPrime &a1) const;
-    bool operator==(const BigRandomPrime &a1) const;
+    friend BigRandomPrime operator+(const BigRandomPrime &a1, const BigRandomPrime &a2);
+    friend BigRandomPrime operator-(const BigRandomPrime &a1, const BigRandomPrime &a2);
+    friend BigRandomPrime operator*(const BigRandomPrime &a1, const BigRandomPrime &a2);
+    friend BigRandomPrime operator/(const BigRandomPrime &a1, const BigRandomPrime &a2);
+    friend BigRandomPrime operator%(const BigRandomPrime &a1, const BigRandomPrime &a2);
+    friend bool operator==(const BigRandomPrime &a1, const BigRandomPrime &a2);
+    //friend bool operator!=(const BigRandomPrime &a1, const BigRandomPrime &a2);
     quint64 ToDec() const;
     ~BigRandomPrime() { }
 

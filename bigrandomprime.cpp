@@ -30,40 +30,46 @@ void BigRandomPrime::show(const quint8 shift) const
     std::cout << std::endl << std::flush;
 }
 
-BigRandomPrime BigRandomPrime::operator +(const BigRandomPrime &a1) const
+BigRandomPrime operator +(const BigRandomPrime &a1, const BigRandomPrime &a2)
 {
-    QBitArray result = DecToBin::operator +(this->m_bitnumber, a1.m_bitnumber);
+    QBitArray result = DecToBin::operator +(a1.m_bitnumber, a2.m_bitnumber);
+        return BigRandomPrime(result);
+}
+
+BigRandomPrime operator%(const BigRandomPrime &a1, const BigRandomPrime &a2)
+{
+    QBitArray result = DecToBin::operator %(a1.m_bitnumber, a2.m_bitnumber);
     return BigRandomPrime(result);
 }
 
-BigRandomPrime BigRandomPrime::operator -(const BigRandomPrime &a1) const
+BigRandomPrime operator -(const BigRandomPrime &a1, const BigRandomPrime &a2)
 {
-    QBitArray result = DecToBin::operator -(this->m_bitnumber, a1.m_bitnumber);
+    QBitArray result = DecToBin::operator -(a1.m_bitnumber, a2.m_bitnumber);
     return BigRandomPrime(result);
 }
 
-BigRandomPrime BigRandomPrime::operator *(const BigRandomPrime &a1) const
+BigRandomPrime operator *(const BigRandomPrime &a1, const BigRandomPrime &a2)
 {
-    QBitArray result = DecToBin::operator *(this->m_bitnumber, a1.m_bitnumber);
+    QBitArray result = DecToBin::operator *(a1.m_bitnumber, a2.m_bitnumber);
     return BigRandomPrime(result);
 }
 
-BigRandomPrime BigRandomPrime::operator /(const BigRandomPrime &a1) const
+BigRandomPrime operator /(const BigRandomPrime &a1, const BigRandomPrime &a2)
 {
-    QBitArray result = DecToBin::operator /(this->m_bitnumber, a1.m_bitnumber);
+    QBitArray result = DecToBin::operator /(a1.m_bitnumber, a2.m_bitnumber);
     return BigRandomPrime(result);
 }
 
-BigRandomPrime BigRandomPrime::operator %(const BigRandomPrime &a1) const
+bool operator ==(const BigRandomPrime &a1, const BigRandomPrime &a2)
 {
-    QBitArray result = DecToBin::operator %(this->m_bitnumber, a1.m_bitnumber);
-    return BigRandomPrime(result);
+    return DecToBin::operator ==(a1.m_bitnumber, a2.m_bitnumber);
 }
 
-bool BigRandomPrime::operator ==(const BigRandomPrime &a1) const
-{
-    return DecToBin::operator ==(this->m_bitnumber, a1.m_bitnumber);
-}
+
+//bool operator !=(const BigRandomPrime &a1, const BigRandomPrime &a2)
+//{
+//    return !DecToBin::operator ==(a1.m_bitnumber, a2.m_bitnumber);
+//}
 
 quint64 BigRandomPrime::ToDec() const
 {
