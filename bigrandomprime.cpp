@@ -411,3 +411,21 @@ QBitArray DecToBin::decToBitArray(quint64 dec)
     }
     return result;
 }
+
+void BigRandom::randomize() const
+{
+    static bool isCalled = false;
+    if(isCalled)
+        return;
+    qsrand(time(NULL));
+    isCalled = true;
+}
+
+BigRandom::BigRandom(const quint32 length) : m_bitnumber(length)
+{
+    Q_ASSERT_X(length >= 1, "length", "length of new big random must be >= 1");
+    randomize();
+    m_bitnumber.setBit(0, 1);
+    for(quint32 itr = 1; itr < m_bitnumber.size(); ++itr)
+        m_bitnumber.setBit(itr, qrand() % 2);
+}

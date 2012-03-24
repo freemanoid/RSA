@@ -31,6 +31,16 @@ bool operator!=(const QBitArray &a1, const QBitArray &a2);
 QBitArray operator^(const QBitArray &a1, QBitArray a2);
 }
 
+class BigRandom
+{
+private:
+    QBitArray m_bitnumber;
+    void randomize() const;
+public:
+    BigRandom(const quint32 length);
+    QBitArray getQBitArray() { return m_bitnumber; }
+};
+
 class BigRandomPrime
 {
 private:
