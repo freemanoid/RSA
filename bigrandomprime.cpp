@@ -5,12 +5,11 @@
 
 BigRandomPrime::BigRandomPrime(const quint32 length) : m_bitnumber(length)
 {
-    randomize();
     if(length == 0)
         return;
+    Q_ASSERT_X(length >= 2, "length", "length of new prime must be >= 2");
+    randomize();
     m_bitnumber.setBit(0, 1);
-    if(length < 2)
-        return;
     m_bitnumber.setBit(m_bitnumber.size() - 1, 1); //no even numbers!
     for(quint32 itr = 1; itr < m_bitnumber.size() - 1; ++itr)
         m_bitnumber.setBit(itr, qrand() % 2);
