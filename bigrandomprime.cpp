@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <iostream>
 
-BigRandomPrime::BigRandomPrime(const quint16 length) : m_bitnumber(length)
+BigRandomPrime::BigRandomPrime(const quint32 length) : m_bitnumber(length)
 {
     randomize();
     if(length == 0)
@@ -12,7 +12,7 @@ BigRandomPrime::BigRandomPrime(const quint16 length) : m_bitnumber(length)
     if(length < 2)
         return;
     m_bitnumber.setBit(m_bitnumber.size() - 1, 1); //no even numbers!
-    for(quint16 itr = 1; itr < m_bitnumber.size() - 1; ++itr)
+    for(quint32 itr = 1; itr < m_bitnumber.size() - 1; ++itr)
         m_bitnumber.setBit(itr, qrand() % 2);
 }
 
@@ -25,7 +25,7 @@ void BigRandomPrime::show(const quint8 shift) const
     }
     for(quint8 itr = 0; itr < shift; ++itr)
         std::cout << 0 << std::flush;
-    for(quint16 itr = 0; itr < m_bitnumber.size(); ++itr)
+    for(quint32 itr = 0; itr < m_bitnumber.size(); ++itr)
         std::cout << m_bitnumber.testBit(itr) << std::flush;
     std::cout << std::endl << std::flush;
 }
@@ -118,7 +118,7 @@ QBitArray DecToBin::operator+(const QBitArray &a1, const QBitArray &a2)
     QBitArray result(qMax(a1.size(), a2.size()) + 1);
     const QBitArray *min = a1.size() < a2.size() ? &a1 : &a2;
     const QBitArray *max = a1.size() > a2.size() ? &a1 : &a2;
-    quint16 itr = 1;
+    quint32 itr = 1;
     bool rest = 0;
     bool nextrest = 0;
     for(; itr <= min->size(); ++itr)
@@ -141,7 +141,7 @@ QBitArray DecToBin::operator+(const QBitArray &a1, const QBitArray &a2)
         return result;
     }
     QBitArray resultWithLessSize(result.size() - 1);
-    for(quint16 itr = 1; itr <= resultWithLessSize.size(); ++itr)
+    for(quint32 itr = 1; itr <= resultWithLessSize.size(); ++itr)
         resultWithLessSize.setBit(resultWithLessSize.size() - itr, result.testBit(result.size() - itr));
     return resultWithLessSize;
 }
@@ -153,7 +153,7 @@ QBitArray DecToBin::operator-(const QBitArray &a1, const QBitArray &a2)
     const QBitArray *max = a1 > a2 ? &a1 : &a2;
     if(max == min)
         return QBitArray(0);
-    quint16 itr = 1;
+    quint32 itr = 1;
     bool rest = 0;
     bool nextrest = 0;
     for(; itr <= min->size(); ++itr)
@@ -175,7 +175,7 @@ QBitArray DecToBin::operator-(const QBitArray &a1, const QBitArray &a2)
         result.setBit(0, 0);
         return result;
     }
-    quint16 lessResultSize = result.size();
+    quint32 lessResultSize = result.size();
     for(itr = 0; itr < result.size() && !result.testBit(itr); ++itr)
         --lessResultSize;
     QBitArray resultWithLessSize(lessResultSize);
@@ -189,9 +189,9 @@ QBitArray DecToBin::operator*(const QBitArray &a1, const QBitArray &a2)
     QBitArray result(0);
     if(a1.size() == 0 || a2.size() == 0)
         return result; //empty array
-    result.resize(a1.size() + a2.size());
-    quint16 a1size = a1.size();
-    for(quint16 itr = 1; itr <= a2.size(); ++itr)
+//    result.resize(a1.size() + a2.size());
+    quint32 a1size = a1.size();
+    for(quint32 itr = 1; itr <= a2.size(); ++itr)
     {
         if(a2.testBit(a2.size() - itr))
             result = result + a1;
@@ -206,7 +206,7 @@ QBitArray DecToBin::operator/(const QBitArray &a1, const QBitArray &a2)
     QBitArray result(0);
     quint16 itrResult = 0;
     QBitArray current(0);
-    quint16 itrA1 = 0;
+    quint32 itrA1 = 0;
     for(; current < a2; ++itrA1)
     {
         current.resize(current.size() + 1);
@@ -249,7 +249,7 @@ QBitArray DecToBin::operator/(const QBitArray &a1, const QBitArray &a2)
 QBitArray DecToBin::operator%(const QBitArray &a1, const QBitArray &a2)
 {
     QBitArray current(0);
-    quint16 itrA1 = 0;
+    quint32 itrA1 = 0;
     for(; current < a2; ++itrA1)
     {
         current.resize(current.size() + 1);
@@ -269,10 +269,10 @@ QBitArray DecToBin::operator%(const QBitArray &a1, const QBitArray &a2)
 
 bool DecToBin::operator>(const QBitArray &a1, const QBitArray &a2)
 {
-    quint16 a1size = a1.size();
+    quint32 a1size = a1.size();
     while(a1size > 0 && !a1.testBit(a1.size() - a1size))
         --a1size;
-    quint16 a2size = a2.size();
+    quint32 a2size = a2.size();
     while(a2size > 0 && !a2.testBit(a2.size() - a2size))
         --a2size;
     if(a1size > a2size)
@@ -290,10 +290,10 @@ bool DecToBin::operator>(const QBitArray &a1, const QBitArray &a2)
 
 bool DecToBin::operator>=(const QBitArray &a1, const QBitArray &a2)
 {
-    quint16 a1size = a1.size();
+    quint32 a1size = a1.size();
     while(a1size > 0 && !a1.testBit(a1.size() - a1size))
         --a1size;
-    quint16 a2size = a2.size();
+    quint32 a2size = a2.size();
     while(a2size > 0 && !a2.testBit(a2.size() - a2size))
         --a2size;
     if(a1size > a2size)
@@ -311,10 +311,10 @@ bool DecToBin::operator>=(const QBitArray &a1, const QBitArray &a2)
 
 bool DecToBin::operator<(const QBitArray &a1, const QBitArray &a2)
 {
-    quint16 a1size = a1.size();
+    quint32 a1size = a1.size();
     while(a1size > 0 && !a1.testBit(a1.size() - a1size))
         --a1size;
-    quint16 a2size = a2.size();
+    quint32 a2size = a2.size();
     while(a2size > 0 && !a2.testBit(a2.size() - a2size))
         --a2size;
     if(a1size < a2size)
@@ -332,10 +332,10 @@ bool DecToBin::operator<(const QBitArray &a1, const QBitArray &a2)
 
 bool DecToBin::operator<=(const QBitArray &a1, const QBitArray &a2)
 {
-    quint16 a1size = a1.size();
+    quint32 a1size = a1.size();
     while(a1size > 0 && !a1.testBit(a1.size() - a1size))
         --a1size;
-    quint16 a2size = a2.size();
+    quint32 a2size = a2.size();
     while(a2size > 0 && !a2.testBit(a2.size() - a2size))
         --a2size;
     if(a1size < a2size)
@@ -353,15 +353,15 @@ bool DecToBin::operator<=(const QBitArray &a1, const QBitArray &a2)
 
 bool DecToBin::operator==(const QBitArray &a1, const QBitArray &a2)
 {
-    quint16 a1size = a1.size();
+    quint32 a1size = a1.size();
     while(a1size > 0 && !a1.testBit(a1.size() - a1size))
         --a1size;
-    quint16 a2size = a2.size();
+    quint32 a2size = a2.size();
     while(a2size > 0 && !a2.testBit(a2.size() - a2size))
         --a2size;
     if(a1size != a2size)
         return false;
-    for(quint16 itr = a1size; itr > 0; --itr)
+    for(quint32 itr = a1size; itr > 0; --itr)
         if(a1.testBit(a1.size() - itr) != a2.testBit(a2.size() - itr))
             return false;
     return true;
@@ -402,7 +402,7 @@ quint64 DecToBin::determinateDecSizeToBin(const quint64 &dec)
 QBitArray DecToBin::decToBitArray(quint64 dec)
 {
     QBitArray result(determinateDecSizeToBin(dec));
-    quint16 index = 1;
+    quint32 index = 1;
     while(dec > 0)
     {
         result.setBit(result.size() - index, dec % 2);

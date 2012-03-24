@@ -49,7 +49,7 @@ private:
     void randomize();
 
 public:
-    explicit BigRandomPrime(const quint16 length);
+    explicit BigRandomPrime(const quint32 length);
     BigRandomPrime(const QBitArray &bitarray) : m_bitnumber(bitarray) { }
     void show(const quint8 shift = 0) const;
     friend BigRandomPrime operator+(const BigRandomPrime &a1, const BigRandomPrime &a2);
