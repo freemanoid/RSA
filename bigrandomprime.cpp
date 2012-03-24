@@ -35,7 +35,7 @@ BigRandomPrime operator +(const BigRandomPrime &a1, const BigRandomPrime &a2)
         return BigRandomPrime(result);
 }
 
-BigRandomPrime operator%(const BigRandomPrime &a1, const BigRandomPrime &a2)
+BigRandomPrime operator %(const BigRandomPrime &a1, const BigRandomPrime &a2)
 {
     QBitArray result = DecToBin::operator %(a1.m_bitnumber, a2.m_bitnumber);
     return BigRandomPrime(result);
@@ -83,8 +83,10 @@ bool BigRandomPrime::test() const
 bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) const
 {
     for(quint8 itr = 0; itr < tableSize; ++itr)
-        if((this->operator %(BigRandomPrime(DecToBin::decToBitArray(table[itr]))) == BigRandomPrime(0)))
+        if((*this % BigRandomPrime(DecToBin::decToBitArray(table[itr])) == BigRandomPrime(0)))
         {
+            if(*this == BigRandomPrime(DecToBin::decToBitArray(table[itr])))
+                return true;
             qDebug() << this->ToDec() << " delitsia na " << table[itr];
             return false;
         }
@@ -193,7 +195,7 @@ QBitArray DecToBin::operator-(const QBitArray &a1, const QBitArray &a2)
     QBitArray result(qMax(a1.size(), a2.size()));
     const QBitArray *min = a1 < a2 ? &a1 : &a2;
     const QBitArray *max = a1 > a2 ? &a1 : &a2;
-    if(max == min)
+    if(DecToBin::operator ==(*max, *min))
         return QBitArray(0);
     quint32 itr = 1;
     bool rest = 0;
