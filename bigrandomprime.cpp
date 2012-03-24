@@ -91,7 +91,7 @@ bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) co
     return true;
 }
 
-void BigRandomPrime::randomize()
+void BigRandomPrime::randomize() const
 {
     static bool isCalled = false;
     if(isCalled)
