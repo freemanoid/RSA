@@ -186,6 +186,12 @@ QBitArray DecToBin::operator-(const QBitArray &a1, const QBitArray &a2)
 QBitArray DecToBin::operator*(const QBitArray &a1, const QBitArray &a2)
 {
     QBitArray result(0);
+    if(DecToBin::operator ==(a2, decToBitArray(2)))
+    {
+        result = a1;
+        result.resize(result.size() + 1);
+        return result;
+    }
     if(a1.size() == 0 || a2.size() == 0)
         return result; //empty array
 //    result.resize(a1.size() + a2.size());
@@ -203,7 +209,13 @@ QBitArray DecToBin::operator*(const QBitArray &a1, const QBitArray &a2)
 QBitArray DecToBin::operator/(const QBitArray &a1, const QBitArray &a2)
 {
     QBitArray result(0);
-    quint16 itrResult = 0;
+    if(DecToBin::operator ==(a2, decToBitArray(2)))
+    {
+        result = a1;
+        result.resize(result.size() - 1);
+        return result;
+    }
+    quint32 itrResult = 0;
     QBitArray current(0);
     quint32 itrA1 = 0;
     for(; current < a2; ++itrA1)
@@ -247,6 +259,10 @@ QBitArray DecToBin::operator/(const QBitArray &a1, const QBitArray &a2)
 
 QBitArray DecToBin::operator%(const QBitArray &a1, const QBitArray &a2)
 {
+    if(DecToBin::operator ==(a2, decToBitArray(2)))
+            return QBitArray(1, a1.testBit(a1.size() - 1));
+    if(DecToBin::operator <(a1, a2))
+        return a1;
     QBitArray current(0);
     quint32 itrA1 = 0;
     for(; current < a2; ++itrA1)
