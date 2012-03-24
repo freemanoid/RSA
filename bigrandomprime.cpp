@@ -77,7 +77,7 @@ quint64 BigRandomPrime::ToDec() const
 bool BigRandomPrime::test() const
 {
     using namespace BRP;
-    return tableTest(primes, tableSize);
+    return tableTest(primes, tableSize) && MRtest(m_bitnumber, m_bitnumber.size());
 }
 
 bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) const
@@ -90,6 +90,49 @@ bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) co
         }
     return true;
 }
+
+bool BigRandomPrime::MRtest(const QBitArray &prime, const quint32 rounds) const//alghoritm Miller - Rabin
+{
+    QBitArray mult(DecToBin::operator -(prime, DecToBin::decToBitArray(1))); //mult = prime - 1
+    QBitArray powerOfTwo(0);
+    while(DecToBin::operator ==(DecToBin::operator %(mult, DecToBin::decToBitArray(2)), QBitArray(0)))
+    {
+        powerOfTwo = DecToBin::operator +(powerOfTwo, DecToBin::decToBitArray(1));
+        mult = DecToBin::operator /(mult, DecToBin::decToBitArray(2));
+    }//now: prime - 1 = 2 ^ powerOfTwo * mult
+    for(quint32 round = 1; round <= rounds; ++round)
+    {
+        QBitArray witnessOfSimplicity = BigRandom((qrand() % (m_bitnumber.size() - 2)) + 2).getQBitArray();
+//        qDebug() << "mult = " << BigRandomPrime(mult).ToDec();
+//        qDebug() << "powerOfTwo = " << BigRandomPrime(powerOfTwo).ToDec();
+//        qDebug() << "witnessOfSimplicity = " << BigRandomPrime(witnessOfSimplicity).ToDec();
+        QBitArray temp(0);
+        temp = DecToBin::operator %(DecToBin::operator ^(witnessOfSimplicity, mult), prime);
+        if(DecToBin::operator ==(temp, DecToBin::decToBitArray(1)) ||
+                DecToBin::operator ==(temp, DecToBin::operator -(prime, DecToBin::decToBitArray(1))))
+            continue;
+        for(QBitArray itr(0); DecToBin::operator <(itr, DecToBin::operator -(powerOfTwo, DecToBin::decToBitArray(1)));
+            itr = DecToBin::operator +(itr, DecToBin::decToBitArray(1)))
+        {
+            temp = DecToBin::operator %(DecToBin::operator *(temp, temp), prime);
+            if(DecToBin::operator ==(temp, DecToBin::decToBitArray(1)))
+                    return false;
+            if(DecToBin::operator ==(temp, DecToBin::operator -(prime, DecToBin::decToBitArray(1))))
+                goto labelnextitr;
+        }
+//        qDebug() << "mult = " << BigRandomPrime(mult).ToDec();
+//        qDebug() << "powerOfTwo = " << BigRandomPrime(powerOfTwo).ToDec();
+//        qDebug() << "witnessOfSimplicity = " << BigRandomPrime(witnessOfSimplicity).ToDec();
+//        qDebug() << "temp = " << BigRandomPrime(temp).ToDec();
+
+        return false;
+        labelnextitr: ;
+    }
+    return true;
+}
+
+
+
 
 void BigRandomPrime::randomize() const
 {

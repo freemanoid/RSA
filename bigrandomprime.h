@@ -46,6 +46,7 @@ class BigRandomPrime
 private:
     QBitArray m_bitnumber;
     bool tableTest(const quint16 [], const quint8 tableSize) const;
+    bool MRtest(const QBitArray &prime, const quint32 rounds) const;
     void randomize() const;
 
 public:
