@@ -27,6 +27,8 @@ bool operator>=(const QBitArray &a1, const QBitArray &a2);
 bool operator<(const QBitArray &a1, const QBitArray &a2);
 bool operator<=(const QBitArray &a1, const QBitArray &a2);
 bool operator==(const QBitArray &a1, const QBitArray &a2);
+bool operator!=(const QBitArray &a1, const QBitArray &a2);
+QBitArray operator^(const QBitArray &a1, QBitArray a2);
 }
 
 class BigRandomPrime
@@ -46,7 +48,7 @@ public:
     friend BigRandomPrime operator/(const BigRandomPrime &a1, const BigRandomPrime &a2);
     friend BigRandomPrime operator%(const BigRandomPrime &a1, const BigRandomPrime &a2);
     friend bool operator==(const BigRandomPrime &a1, const BigRandomPrime &a2);
-    //friend bool operator!=(const BigRandomPrime &a1, const BigRandomPrime &a2);
+    friend bool operator!=(const BigRandomPrime &a1, const BigRandomPrime &a2);
     quint64 ToDec() const;
     ~BigRandomPrime() { }
 

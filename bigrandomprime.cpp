@@ -65,11 +65,10 @@ bool operator ==(const BigRandomPrime &a1, const BigRandomPrime &a2)
     return DecToBin::operator ==(a1.m_bitnumber, a2.m_bitnumber);
 }
 
-
-//bool operator !=(const BigRandomPrime &a1, const BigRandomPrime &a2)
-//{
-//    return !DecToBin::operator ==(a1.m_bitnumber, a2.m_bitnumber);
-//}
+bool operator !=(const BigRandomPrime &a1, const BigRandomPrime &a2)
+{
+    return !(DecToBin::operator ==(a1.m_bitnumber, a2.m_bitnumber));
+}
 
 quint64 BigRandomPrime::ToDec() const
 {
@@ -366,6 +365,24 @@ bool DecToBin::operator==(const QBitArray &a1, const QBitArray &a2)
         if(a1.testBit(a1.size() - itr) != a2.testBit(a2.size() - itr))
             return false;
     return true;
+}
+
+bool DecToBin::operator!=(const QBitArray &a1, const QBitArray &a2)
+{
+    return !(operator !=(a1, a2));
+}
+
+QBitArray DecToBin::operator^(const QBitArray &a1, QBitArray a2)
+{
+    if(DecToBin::operator ==(a2, QBitArray(0)))
+            return QBitArray(1, 1);
+    QBitArray result(a1);
+    while(DecToBin::operator >(a2, QBitArray(1, 1)))
+    {
+        result = DecToBin::operator *(result, a1);
+        a2 = DecToBin::operator -(a2, QBitArray(1, 1));
+    }
+    return result;
 }
 
 quint64 DecToBin::determinateDecSizeToBin(const quint64 &dec)
