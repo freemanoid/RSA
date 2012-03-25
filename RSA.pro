@@ -12,9 +12,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    bigrandomprime.cpp
+    bigprime.cpp
 
 HEADERS  += mainwindow.h \
-    bigrandomprime.h
+    bigprime.h
 
 FORMS    += mainwindow.ui
+
+unix|win32: LIBS += -lgmpxx
