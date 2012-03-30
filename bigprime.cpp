@@ -25,7 +25,23 @@ void BigPrime::show() const
     std::cout << m_number << std::endl << std::flush;
 }
 
-gmp_randclass *BigPrime::randomator() const
+BigPrime operator *(const BigPrime &a1, const BigPrime &a2)
+{
+    return BigPrime(mpz_class(a1.m_number * a2.m_number));
+}
+
+BigPrime operator -(const BigPrime &a1, const quint64 &a2)
+{
+    return BigPrime(a1.m_number - (unsigned long int)(a2));
+}
+
+BigPrime::BigPrime(const BigPrime &a) : QObject()
+{
+    m_length = a.m_length;
+    m_number = a.m_number;
+}
+
+gmp_randclass *BigPrime::randomator()
 {
     static gmp_randclass rnd(gmp_randinit_mt);
     static bool isSeeded = false;
@@ -41,7 +57,17 @@ bool BigPrime::primalityTest() const
 {
 
     return tableTest() && MRtest();
-//    return tableTest(primes, tableSize) && bool(mpz_probab_prime_p(mpz_ptr(&m_number), m_length));
+    //    return tableTest(primes, tableSize) && bool(mpz_probab_prime_p(mpz_ptr(&m_number), m_length));
+}
+
+BigPrime::BigPrime(mpz_class number, QObject *parent) : QObject(parent), m_number(number)
+{
+    m_length = 1;
+    while(number / 2 > 0)
+    {
+        number /= 2;
+        ++m_length;
+    }
 }
 
 bool BigPrime::tableTest() const
@@ -91,3 +117,45 @@ bool BigPrime::MRtest() const
     }
     return true;
 }
+
+mpz_class BigPrime::mutuallyPrime() const
+{
+    mpz_class result = randomator()->get_z_bits(this->getLength() - 1) + 5;
+    mpz_setbit(mpz_ptr(&result), 0); //no even numbers!
+    mpz_setbit(mpz_ptr(&result), this->getLength() - 2); //we want to have at least length bits and must set first bit to be happy
+    mpz_class devider = 2;
+    do
+    {
+        result -= 2;
+//        BigPrime(result).show();
+        mpz_class a = this->m_number;
+        mpz_class b = result;
+        mpz_class rest;
+        while(true)
+        {
+            rest = a % b;
+            if(rest == 0)
+            {
+                devider = b;
+                //BigPrime(devider).show();
+                break;
+            }
+            a = b;
+            b = rest;
+        }
+    } while (devider > 1);
+    return result;
+}
+
+void BigPrime::operator -=(const quint64 &a)
+{
+    m_number = m_number - (unsigned long int)(a);
+    m_length = 1;
+    mpz_class carry = m_number;
+    while(carry / 2 > 0)
+    {
+        carry /= 2;
+        ++m_length;
+    }
+}
+

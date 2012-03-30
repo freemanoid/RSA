@@ -12,10 +12,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    bigprime.cpp
+    bigprime.cpp \
+    key.cpp \
+    crypt.cpp
 
 HEADERS  += mainwindow.h \
-    bigprime.h
+    bigprime.h \
+    key.h \
+    crypt.h
 
 FORMS    += mainwindow.ui
 

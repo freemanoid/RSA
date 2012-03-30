@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <iostream>
 #include <gmpxx.h>
+#include <key.h>
 
 namespace bp
 {
@@ -19,15 +20,25 @@ class BigPrime : public QObject
 private:
     mpz_class m_number;
     quint32 m_length;
-    gmp_randclass *randomator() const;
+    static gmp_randclass *randomator();
     bool tableTest() const;
     bool MRtest() const;
     bool primalityTest() const;
+//    BigPrime(mpz_class number, QObject *parent = 0);
 
 public:
+    BigPrime(mpz_class number, QObject *parent = 0);//
     explicit BigPrime(quint32 length, const BigPrime &enemy = 0,QObject *parent = 0);
+    BigPrime(QObject *parent = 0) : QObject(parent), m_number(0), m_length(0) { }
+    BigPrime(const BigPrime &a);
     void show() const;
     ~BigPrime() { }
+    friend BigPrime operator*(const BigPrime &a1, const BigPrime &a2);
+    friend BigPrime operator-(const BigPrime &a1, const quint64 &a2);
+    void operator-=(const quint64 &a);
+    quint32 getLength() const { return m_length; }
+    mpz_class value() const { return m_number; }
+    mpz_class mutuallyPrime() const;
 
 signals:
     
