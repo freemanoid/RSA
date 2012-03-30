@@ -24,11 +24,10 @@ private:
     bool tableTest() const;
     bool MRtest() const;
     bool primalityTest() const;
-//    BigPrime(mpz_class number, QObject *parent = 0);
 
 public:
-    BigPrime(mpz_class number, QObject *parent = 0);//
-    explicit BigPrime(quint32 length, const BigPrime &enemy = 0,QObject *parent = 0);
+    explicit BigPrime(quint32 length, const BigPrime &enemy = 0, QObject *parent = 0);
+    BigPrime(mpz_class number, QObject *parent = 0);
     BigPrime(QObject *parent = 0) : QObject(parent), m_number(0), m_length(0) { }
     BigPrime(const BigPrime &a);
     void show() const;

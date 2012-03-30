@@ -55,9 +55,7 @@ gmp_randclass *BigPrime::randomator()
 
 bool BigPrime::primalityTest() const
 {
-
     return tableTest() && MRtest();
-    //    return tableTest(primes, tableSize) && bool(mpz_probab_prime_p(mpz_ptr(&m_number), m_length));
 }
 
 BigPrime::BigPrime(mpz_class number, QObject *parent) : QObject(parent), m_number(number)
@@ -127,7 +125,6 @@ mpz_class BigPrime::mutuallyPrime() const
     do
     {
         result -= 2;
-//        BigPrime(result).show();
         mpz_class a = this->m_number;
         mpz_class b = result;
         mpz_class rest;
@@ -137,7 +134,6 @@ mpz_class BigPrime::mutuallyPrime() const
             if(rest == 0)
             {
                 devider = b;
-                //BigPrime(devider).show();
                 break;
             }
             a = b;
