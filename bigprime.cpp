@@ -1,6 +1,6 @@
 #include "bigprime.h"
 
-BigPrime::BigPrime(quint32 length, QObject *parent) : QObject(parent)
+BigPrime::BigPrime(quint32 length, const BigPrime &enemy, QObject *parent) : QObject(parent)
 {
     Q_ASSERT_X(length >= 2, "length of new big prime must be >= 2", "length of new big prime must be >= 2");
     m_length = length;
@@ -9,6 +9,15 @@ BigPrime::BigPrime(quint32 length, QObject *parent) : QObject(parent)
     mpz_setbit(mpz_ptr(&m_number), length - 1); //we want to have at least length bits and must set first bit to be happy
     while(!primalityTest())
         m_number += 2;
+    if(enemy.m_number != (mpz_class(0)))
+        while(m_number == enemy.m_number)
+        {
+            m_number = randomator()->get_z_bits(length);
+            mpz_setbit(mpz_ptr(&m_number), 0); //no even numbers!
+            mpz_setbit(mpz_ptr(&m_number), length - 1); //we want to have at least length bits and must set first bit to be happy
+            while(!primalityTest())
+                m_number += 2;
+        }
 }
 
 void BigPrime::show() const

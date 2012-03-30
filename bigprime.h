@@ -25,7 +25,7 @@ private:
     bool primalityTest() const;
 
 public:
-    explicit BigPrime(quint32 length, QObject *parent = 0);
+    explicit BigPrime(quint32 length, const BigPrime &enemy = 0,QObject *parent = 0);
     void show() const;
     ~BigPrime() { }
 
