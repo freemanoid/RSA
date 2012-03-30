@@ -88,6 +88,7 @@ bool BigRandomPrime::tableTest(const quint16 table[], const quint8 tableSize) co
             if(*this == BigRandomPrime(DecToBin::decToBitArray(table[itr])))
                 return true;
             qDebug() << this->ToDec() << " delitsia na " << table[itr];
+            this->show();
             return false;
         }
     return true;
@@ -145,6 +146,16 @@ void BigRandomPrime::randomize() const
     isCalled = true;
 }
 
+//bool BigRandomPrime::isWitnessSimplicity(const QBitArray &prime, const QBitArray &witness, QBitArray power) const //prime is not even and > 1
+//{
+//    QBitArray witnessInPower(witness);
+//    for(; DecToBin::operator >(power, QBitArray(1, 1)); power = DecToBin::operator -(power, QBitArray(1, 1)))
+//        witnessInPower = DecToBin::operator *(witnessInPower, witness);
+//    if(DecToBin::operator ==(DecToBin::operator %(witnessInPower, prime), QBitArray(1, 1)))
+//        return true;
+
+
+//}
 
 quint64 DecToBin::bitArrayToDec(const QBitArray &a)
 {
@@ -195,6 +206,8 @@ QBitArray DecToBin::operator-(const QBitArray &a1, const QBitArray &a2)
     QBitArray result(qMax(a1.size(), a2.size()));
     const QBitArray *min = a1 < a2 ? &a1 : &a2;
     const QBitArray *max = a1 > a2 ? &a1 : &a2;
+    //qDebug() << BigRandomPrime(a1).ToDec();
+    //qDebug() << BigRandomPrime(a2).ToDec();
     if(DecToBin::operator ==(*max, *min))
         return QBitArray(0);
     quint32 itr = 1;
@@ -370,6 +383,7 @@ bool DecToBin::operator>=(const QBitArray &a1, const QBitArray &a2)
 }
 
 bool DecToBin::operator<(const QBitArray &a1, const QBitArray &a2)
+
 {
     quint32 a1size = a1.size();
     while(a1size > 0 && !a1.testBit(a1.size() - a1size))

@@ -48,6 +48,7 @@ private:
     bool tableTest(const quint16 [], const quint8 tableSize) const;
     bool MRtest(const QBitArray &prime, const quint32 rounds) const;
     void randomize() const;
+    //bool isWitnessSimplicity(const QBitArray &prime, const QBitArray &witness, const QBitArray power) const;
 
 public:
     explicit BigRandomPrime(const quint32 length);
