@@ -1,6 +1,5 @@
 #include <QtGui/QApplication>
 #include "mainwindow.h"
-#include <bigprime.h>
 #include <key.h>
 
 int main(int argc, char *argv[])
@@ -11,8 +10,8 @@ int main(int argc, char *argv[])
 //    a.exec();
     using namespace std;
     Key a(64);
-    mpz_class rsa = a.crypt(314213432);
-    cout << "rsa(" << rsa << ") = " << a.decrypt(rsa) << endl << flush;
+//    QVector<mpz_class> *lol = a.crypt("12342134213561239874648721364870921342183974");
+    qDebug() << a.decrypt(a.crypt("123214321421341234123412341234213"));
 //    return a.exec();
     return 0;
 }
