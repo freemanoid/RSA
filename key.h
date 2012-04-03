@@ -19,6 +19,7 @@ public:
     explicit Key(const quint32 &length = 0, QObject *parent = 0);
     mpz_class crypt(const mpz_class &inf);
     mpz_class decrypt(const mpz_class &inf);
+    mpz_class getMaxBlockLength() const { return m_blocklength - 1; }
 
 signals:
     
