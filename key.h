@@ -22,6 +22,8 @@ public:
     QVector<mpz_class> *crypt(const QString &infString);
     QString decrypt(const QVector<mpz_class> *inf);
     mpz_class getMaxBlockLength() const { return m_blocklength - 1; }
+    static QString toQString(const mpz_class &val, int base = 10);
+    static QString toQString(const QVector<mpz_class> &valarray, int base = 10);
 
 signals:
     

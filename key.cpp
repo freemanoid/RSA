@@ -58,9 +58,19 @@ QString Key::decrypt(const QVector<mpz_class> *inf)
     }
     return result;
 }
+
+QString Key::toQString(const mpz_class &val, int base)
 {
-    mpz_class result;
-    mpz_powm(mpz_ptr(&result), mpz_ptr(&inf), mpz_ptr(&m_privkey), mpz_ptr(&m_blocklength));
+    Q_ASSERT((base <= -2 && base >= -36) or (base >= 2 && base <= 62));
+    return QString(mpz_get_str(NULL, base, mpz_ptr(&val)));
+}
+
+QString Key::toQString(const QVector<mpz_class> &valarray, int base)
+{
+    Q_ASSERT((base <= -2 && base >= -36) or (base >= 2 && base <= 62));
+    QString result;
+    foreach(const mpz_class &itr, valarray)
+        result.append(mpz_get_str(NULL, base, mpz_ptr(&itr)));
     return result;
 }
 
