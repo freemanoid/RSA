@@ -13,15 +13,51 @@ Key::Key(const quint32 &length, QObject *parent) :
     m_privkey = secret(m, m_pubkey);
 }
 
-mpz_class Key::crypt(const mpz_class &inf)
+QVector<mpz_class> *Key::crypt(const QString &infString)
 {
-    Q_ASSERT_X(inf < m_blocklength, "block length crypt", "information block size must be less than max block length");
-    mpz_class result;
-    mpz_powm(mpz_ptr(&result), mpz_ptr(&inf), mpz_ptr(&m_pubkey), mpz_ptr(&m_blocklength));
+    Q_ASSERT(infString.length() >= 1);
+
+    QVector<mpz_class> *result = new QVector<mpz_class>;
+//    QVector<mpz_class>::iterator itrRes = result->begin();
+    quint64 itrRes = 0;
+
+    quint64 itrString = 0;
+    while(itrString < infString.size())
+    {
+        result->append(0);
+        //<read next block>
+        mpz_class digit = 0x1;
+        while(itrString < infString.size() && ((*result)[itrRes] + infString.at(itrString).unicode() * digit) < m_blocklength)
+        {
+            (*result)[itrRes] += infString.at(itrString).unicode() * digit;
+            ++itrString;
+            digit *= 0x10000;
+        }
+//        cout << hex << (*result)[itrRes] << endl << flush;
+        //crypting
+        mpz_powm(mpz_ptr(&(*result)[itrRes]), mpz_ptr(&(*result)[itrRes]), mpz_ptr(&m_pubkey), mpz_ptr(&m_blocklength));
+        itrRes++;
+    }
     return result;
 }
 
-mpz_class Key::decrypt(const mpz_class &inf)
+QString Key::decrypt(const QVector<mpz_class> *inf)
+{
+    QString result;
+    foreach(mpz_class itr, *inf)
+    {
+        mpz_powm(mpz_ptr(&itr), mpz_ptr(&itr), mpz_ptr(&m_privkey), mpz_ptr(&m_blocklength));
+        //TODO: check for empty
+        mpz_class carry = itr % 0x10000;
+        result.append(QChar(static_cast<uint>(mpz_get_ui(mpz_ptr(&carry)))));
+        while((itr /= 0x10000) > 0)
+        {
+            carry = itr % 0x10000;
+            result.append(QChar(static_cast<uint>(mpz_get_ui(mpz_ptr(&carry)))));
+        }
+    }
+    return result;
+}
 {
     mpz_class result;
     mpz_powm(mpz_ptr(&result), mpz_ptr(&inf), mpz_ptr(&m_privkey), mpz_ptr(&m_blocklength));

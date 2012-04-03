@@ -4,6 +4,8 @@
 #include <bigprime.h>
 #include <QObject>
 #include <gmpxx.h>
+#include <cstdlib>
+#include <QDebug>
 
 class Key : public QObject
 {
@@ -17,8 +19,8 @@ private:
 
 public:
     explicit Key(const quint32 &length = 0, QObject *parent = 0);
-    mpz_class crypt(const mpz_class &inf);
-    mpz_class decrypt(const mpz_class &inf);
+    QVector<mpz_class> *crypt(const QString &infString);
+    QString decrypt(const QVector<mpz_class> *inf);
     mpz_class getMaxBlockLength() const { return m_blocklength - 1; }
 
 signals:
