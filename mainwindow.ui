@@ -6,114 +6,611 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>550</width>
+    <height>450</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>RSA</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>rsa.jpg</normaloff>rsa.jpg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>0</y>
-      <width>181</width>
-      <height>71</height>
+      <x>20</x>
+      <y>20</y>
+      <width>500</width>
+      <height>400</height>
      </rect>
     </property>
-    <property name="title">
-     <string>random generation</string>
+    <property name="currentIndex">
+     <number>0</number>
     </property>
-    <widget class="QSpinBox" name="spinBox">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>61</width>
-       <height>22</height>
-      </rect>
-     </property>
+    <widget class="QWidget" name="keygeneration">
+     <attribute name="title">
+      <string>key generation</string>
+     </attribute>
+     <widget class="QGroupBox" name="KeyLengthGroupBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>181</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QPushButton" name="generatePushButton">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>40</y>
+         <width>101</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>generate!</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="KeyLengthLabel">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>0</y>
+         <width>71</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>key length:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="MyComboBox" name="keyLengthComboBox">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>10</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::DefaultContextMenu</enum>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhDigitsOnly</set>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <property name="maxVisibleItems">
+        <number>10</number>
+       </property>
+       <property name="maxCount">
+        <number>10</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+       <property name="minimumContentsLength">
+        <number>1</number>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>8</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>16</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>32</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>64</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>128</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>256</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>512</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>1024</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="BaseGroupBox">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>120</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QLabel" name="BaseLabel">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>61</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;base:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::AutoText</enum>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="MyComboBox" name="NumericSystemComboBox">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>10</y>
+         <width>101</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhDigitsOnly</set>
+       </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>2</number>
+       </property>
+       <property name="maxCount">
+        <number>10</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+       <property name="minimumContentsLength">
+        <number>1</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>8</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>10</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>16</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>26</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>32</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>62</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="PrivateKeyLabel">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>240</y>
+        <width>211</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Private key:</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="PublicKeyTextBrowser">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>260</y>
+        <width>201</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="documentTitle">
+       <string/>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="PrivateKeyTextBrowser">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>260</y>
+        <width>211</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="documentTitle">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="PublicKeyLabel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>240</y>
+        <width>201</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Public key:</string>
+      </property>
+     </widget>
+     <widget class="QProgressBar" name="PublicKeyProgressBar">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>300</y>
+        <width>118</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>0</number>
+      </property>
+      <property name="value">
+       <number>-1</number>
+      </property>
+     </widget>
+     <widget class="QProgressBar" name="PrivateKeyProgressBar">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>300</y>
+        <width>118</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>0</number>
+      </property>
+      <property name="value">
+       <number>-1</number>
+      </property>
+     </widget>
     </widget>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>40</y>
-       <width>75</width>
-       <height>24</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>generate!</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>61</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>key length</string>
-     </property>
+    <widget class="QWidget" name="crypt_decrypt">
+     <attribute name="title">
+      <string>crypt/decrypt</string>
+     </attribute>
+     <widget class="QTextBrowser" name="CryptTextBrowser">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>461</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhNone</set>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="CryptTextLabel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Text:</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="PrivateKeyTextBrowser_2">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>260</y>
+        <width>211</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="documentTitle">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="PrivateKeyLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>240</y>
+        <width>211</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Private key:</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="PublicKeyTextBrowser_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>260</y>
+        <width>201</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="documentTitle">
+       <string/>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="PublicKeyLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>240</y>
+        <width>201</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Public key:</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="CryptDecryptGroupBox">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>170</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QPushButton" name="CryptPushButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>91</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Crypt</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="DecryptPushButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>91</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Decrypt</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QProgressBar" name="PublicKeyProgressBar_2">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>300</y>
+        <width>118</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>0</number>
+      </property>
+      <property name="value">
+       <number>-1</number>
+      </property>
+     </widget>
+     <widget class="QProgressBar" name="PrivateKeyProgressBar_2">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>300</y>
+        <width>118</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>0</number>
+      </property>
+      <property name="value">
+       <number>-1</number>
+      </property>
+     </widget>
+     <widget class="MyComboBox" name="CryptTextBaseComboBox">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>0</y>
+        <width>101</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <property name="maxCount">
+       <number>10</number>
+      </property>
+      <property name="insertPolicy">
+       <enum>QComboBox::NoInsert</enum>
+      </property>
+      <property name="minimumContentsLength">
+       <number>1</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>8</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>10</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>16</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>26</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>32</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>62</string>
+       </property>
+      </item>
+     </widget>
     </widget>
    </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>80</y>
-      <width>41</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Result:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>80</y>
-      <width>341</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="frame">
-     <bool>true</bool>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>400</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>mycombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

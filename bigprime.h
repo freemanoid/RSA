@@ -1,11 +1,9 @@
 #ifndef BIGPRIME_H
 #define BIGPRIME_H
 
-#include <QObject>
 #include <QDebug>
 #include <iostream>
 #include <gmpxx.h>
-#include <key.h>
 
 namespace bp
 {
@@ -13,10 +11,8 @@ const quint16 primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47
 const quint8 tableSize = 95;
 }
 
-class BigPrime : public QObject
+class BigPrime
 {
-    Q_OBJECT
-
 private:
     mpz_class m_number;
     quint32 m_length;
@@ -26,22 +22,20 @@ private:
     bool primalityTest() const;
 
 public:
-    explicit BigPrime(quint32 length, const BigPrime &enemy = 0, QObject *parent = 0);
-    BigPrime(mpz_class number, QObject *parent = 0);
-    BigPrime(QObject *parent = 0) : QObject(parent), m_number(0), m_length(0) { }
+    BigPrime() : m_number(0), m_length(0) { }
+    BigPrime(quint32 length);
+    BigPrime(quint32 length, const BigPrime &enemy);
+    BigPrime(mpz_class number);
     BigPrime(const BigPrime &a);
     void show() const;
     ~BigPrime() { }
     friend BigPrime operator*(const BigPrime &a1, const BigPrime &a2);
     friend BigPrime operator-(const BigPrime &a1, const quint64 &a2);
+    friend bool operator==(const BigPrime &a1, const BigPrime &a2);
     void operator-=(const quint64 &a);
     quint32 getLength() const { return m_length; }
     mpz_class value() const { return m_number; }
     mpz_class mutuallyPrime() const;
-
-signals:
-    
-public slots:
     
 };
 

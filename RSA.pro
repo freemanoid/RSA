@@ -1,7 +1,6 @@
 #-------------------------------------------------
 #
 # Project created by QtCreator 2012-03-01T12:14:03
-#
 #-------------------------------------------------
 
 QT       += core gui
@@ -12,14 +11,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    bigprime.cpp \
     key.cpp \
-    crypt.cpp
+    mycombobox.cpp \
+    bpthread.cpp \
+    bpethread.cpp \
+    bigprime.cpp
 
 HEADERS  += mainwindow.h \
-    bigprime.h \
     key.h \
-    crypt.h
+    mycombobox.h \
+    bpthread.h \
+    bpethread.h \
+    bigprime.h
 
 FORMS    += mainwindow.ui
 
