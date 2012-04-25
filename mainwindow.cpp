@@ -183,3 +183,17 @@ void MainWindow::on_CryptTextBaseComboBox_editTextChanged(const QString &arg1)
         previousBase = ui->CryptTextBaseComboBox->getValue();
     }
 }
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QApplication::aboutQt();
+}
+
+void MainWindow::on_actionAbout_Author_triggered()
+{
+    QMessageBox msg;
+    msg.setText(tr("Author: Elhovenko Alexandr<br>"
+                "github: <a href=\"https://github.com/ouyoutouchmytralala/RSA\">ouyoutouchmytralala</a><br>"
+                "email: freemanoid321[at]gmail.com"));
+    msg.exec();
+}

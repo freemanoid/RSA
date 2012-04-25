@@ -44,6 +44,8 @@ private slots:
     void on_keyLengthComboBox_editTextChanged(const QString &arg1);
 
     void on_CryptTextBaseComboBox_editTextChanged(const QString &arg1);
+    void on_actionAbout_triggered();
+    void on_actionAbout_Author_triggered();
 };
 
 #endif // MAINWINDOW_H
