@@ -161,12 +161,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="mainwindow.cpp" line="143"/>
         <source>Note: keys generation with length &gt; </source>
-        <translation>Внимание: генерация ключей длинной больше 128 бит</translation>
+        <translation>Внимание: генерация ключей длинной &gt;</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="145"/>
         <source> can take a while on weak systems.</source>
-        <translation>может долго выполнятся на слабых системах.</translation>
+        <translation> бит может долго выполнятся на слабых системах.</translation>
     </message>
 </context>
 </TS>
