@@ -26,4 +26,18 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-unix|win32: LIBS += -lgmpxx
+#unix|win32: LIBS += -lgmpxx
+
+unix:!macx:!symbian: LIBS += -L$$PWD/ -lgmpxx
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
+
+unix:!macx:!symbian: PRE_TARGETDEPS += $$PWD/libgmpxx.a
+
+unix:!macx:!symbian: LIBS += -L$$PWD/ -lgmp
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
+
+unix:!macx:!symbian: PRE_TARGETDEPS += $$PWD/libgmp.a
